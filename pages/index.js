@@ -1,6 +1,12 @@
 import Jokes from "../components/Jokes";
 
 function Home() {
+  const jokeyJokes = [
+    {title: "Jokey Joke 1"},
+    {title: "Jokey Joke 2"},
+    {title: "Jokey Joke 3"},
+    {title: "Jokey Joke 4"},
+  ]
   return (
     <div
       className="text-center d-flex flex-column justify-content-center align-content-center"
@@ -11,8 +17,8 @@ function Home() {
         margin: '0 auto',
       }}
     >
-      <h1>Welcome Home!</h1>
-      <Jokes title="Joke Generator Babyyyy"/>
+      <h1></h1>
+      {jokeyJokes.map((joker) => <Jokes title={joker.title} key={joker.title}/>)}
     </div>
   );
 }

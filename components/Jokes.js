@@ -1,6 +1,7 @@
-import { useState } from "react";
-import getJoke from "../api/jokeData";
-import axios from 'axios';
+import { useState } from 'react';
+import PropTypes from 'prop-types';
+import getJoke from '../api/jokeData';
+// import axios from 'axios';
 
 // const examplePromise = () => {
 //   axios.get('http://localhost:3001/example')
@@ -13,19 +14,31 @@ import axios from 'axios';
 // };
 
 function Jokes({ title }) {
-  const [value, setValue] = useState('');
+    const [funnyHaha, setfunnyHaha] = useState({});
+    const [btnShit, setBtnShit] = useState('Wanna Hear a Joke???')
 
   const handleClick = () => {
-    setValue((prevState) => getJoke(prevState))
-  }
+   if (btnShit === 'Wanna Hear a Joke???' || btnShit === 'You Want to Hear Another One, Right?') {
+    getJoke().then(setfunnyHaha).then(() => {
+      setBtnShit('Punchline');
+    });
+   } else if (btnShit === 'Punchline') {
+      setBtnShit('You Want to Hear Another One, Right?');
+   }
+  };
+
   return (
     <>
-      <h1>{title}</h1>
-      <h2>{value}</h2>
-      <button type="button" onClick={handleClick}>Wanna hear a joke?</button>
-      {/* { value === '' ? <button type="button" onClick={}></button> } */}
+      <h1>{ title }</h1>
+      <h2>{ btnShit === 'Wanna Hear a Joke???' ? '' : funnyHaha.setup}</h2>
+      <h3>{btnShit === 'You Want to Hear Another One, Right?' ? funnyHaha.delivery : ''}</h3>
+      <button type="button" onClick={handleClick}>{btnShit}</button>
     </>
   );
 }
 
 export default Jokes;
+
+Jokes.propTypes = {
+  title: PropTypes.string.isRequired,
+};
